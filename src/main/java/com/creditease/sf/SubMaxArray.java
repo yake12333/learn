@@ -7,7 +7,7 @@ public class SubMaxArray {
 
     public static int[] array = {1,-2,3,10,-4,7,2,-5};
 
- 
+  
     public static void main(String[] args) {
         //暴力求解
         mock(array);
