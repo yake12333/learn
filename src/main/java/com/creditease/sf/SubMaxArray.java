@@ -1,16 +1,23 @@
 package com.creditease.sf;
 
-public class SFTest {
-
+public class SubMaxArray {
+    /**
+     * 求给定一个数组的子数组的最大的值
+     */
 
     public static int[] array = {1,-2,3,10,-4,7,2,-5};
 
-
+ 
     public static void main(String[] args) {
         //暴力求解
         mock(array);
+        System.out.println("----------");
         //分治法求解
-        maxAddSub(array,0,7);
+        System.out.println(maxAddSub(array,0,7) + "");
+        //线性的时间复杂度
+
+
+
     }
 
     //暴力求解
@@ -53,36 +60,30 @@ public class SFTest {
             return array[left];
         }
 
-        int middle = (right -left) / 2;
-        int m = maxAddSub(array,left,middle-1);
-        int n = maxAddSub(array,middle , right);
+        int middle = (right+left) / 2;
+        int m = maxAddSub(array,left,middle);
+        int n = maxAddSub(array,middle+1 , right);
 
-        int c  = array[middle];
-        int lmiddle = middle;
-        int leftMax ,tleftmax = array[middle -1];
-        int i = middle -1;
+        int fmax = 0;
+        int tfmax = array[middle];
 
-        for (i =lmiddle -1;i > left; i-- ) {
-            tleftmax += array[lmiddle];
-            if (lmiddle < tleftmax) {
-                leftMax = tleftmax;
+        for(int i = middle -1;i>=left;--i) {
+            tfmax += array[i];
+            if (fmax < tfmax) {
+                fmax = tfmax;
             }
         }
 
-        int b  = array[middle];
-        int rmiddle = middle;
-        int rightMax = array[middle];
-        int trightmax = array[middle];
-        int j = middle;
-
-        for (j =rmiddle -1;j < right ; j++ ) {
-            trightmax += array[lmiddle];
-            if (rightMax < trightmax) {
-                rightMax = trightmax;
+        int tmax = 0;
+        int ttmax = array[middle + 1];
+        for (int i = middle +2; i<=right;++i) {
+            ttmax += array[i];
+            if (tmax < ttmax) {
+                tmax = ttmax;
             }
         }
 
-        return Math.max((b+c),Math.max(m,n));
+        return Math.max((tmax+fmax),Math.max(m,n));
 
     }
 
